@@ -87,7 +87,7 @@ print(val)   #打印是忽略数据类型的
 val
 
 
-# In[33]:
+# In[1]:
 
 
 # 当迭代器中的元素被用完后，再进行取值时系统会报错，显示迭代器已停止StopIteration
@@ -97,4 +97,84 @@ second = next(it)
 
 val = first + second 
 next(it)  #next（）中是不具有指针的，但是超界后依然会报错
+
+
+# In[11]:
+
+
+it = [x for x in range(10) if x % 2]  # 取奇数
+print(it)
+
+it = (x for x in range(10) if x % 2) # x 为整数
+first = next(it)
+second = next(it)
+val = first + second
+val
+
+
+# In[6]:
+
+
+# 验证生成器表达式的运算速率比列表解析式时间快
+get_ipython().run_line_magic('timeit', '(x for x in range(100))')
+get_ipython().run_line_magic('timeit', '[x for x in range(100)]')
+
+
+# ### 2.集合解析式
+
+# In[8]:
+
+
+{(x,x+1) for x in range(10)}
+
+
+# In[10]:
+
+
+# 字典中的元素是要可以hash的，list是不能够hash的值
+{[x] for x in range(10)}
+
+
+# ### 3.字典解析式
+
+# In[12]:
+
+
+# 返回int，tuple类型的数据值
+{x:(x,x+1) for x in range(10)}
+
+
+# In[14]:
+
+
+# 返回int，list类型的数据值
+{x:[x,x+1] for x in range(10)}
+
+
+# In[16]:
+
+
+# 返回tuple，list类型的数据值
+{(x,):[x,x+1] for x in range(10)}
+
+
+# In[19]:
+
+
+# list类型是不可hash的，所以不能够当做key值
+{[x]:[x,x+1] for x in range(10)}
+
+
+# In[22]:
+
+
+# 0x41 十六进制数，表示“A”，chr（）将数字转换为字符 
+{chr(0x41 + x):x**2 for x in range(10)}
+
+
+# In[24]:
+
+
+# 字典类型是一个映射类型，key值相同的时候只显示最后一个数据，前面的都被覆盖了
+{str(x):y for x in range(3) for y in range(4)}
 
